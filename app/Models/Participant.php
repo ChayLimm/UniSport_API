@@ -12,7 +12,6 @@ class Participant extends Model
     use HasFactory;
     protected $table = "participants";
     protected $fillable = [ 
-        'name',
         'race_id',
         'bib_number',
         'username',

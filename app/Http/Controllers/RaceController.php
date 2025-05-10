@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Participant;
+use App\Models\Checkpoint;
+use App\Models\Segment;
 use Carbon\Traits\Timestamp;
 use Illuminate\Http\Request;
 use App\Models\Race;
@@ -15,7 +17,7 @@ class RaceController extends Controller
      */
     public function index()
     {
-        return response()->json(data: Race::all());
+        return response()->json(Race::paginate(20)); // 20 per page
 
     }
 
@@ -27,6 +29,28 @@ class RaceController extends Controller
         //
     }
 
+    public function getSegmentByRaceID($id){
+        try{
+            $segments = Race::find($id)->segments;
+            return response()->json($segments);
+        }catch(\Exception $e){  
+            return response()->json(["message"=> $e->getMessage()],400);
+        }
+    }
+
+    public function markSegmentFinish($id)
+    {
+        $segment = Segment::find($id);
+    
+        if (!$segment) {
+            return response()->json(['error' => 'Segment not found'], 404);
+        }
+    
+        $segment->update(['mark_as_finish' => true]);
+    
+        return response()->json(['message' => 'done'], 200);
+    }
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -149,6 +173,13 @@ class RaceController extends Controller
             // Handle any errors that occur
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+    public function getRaceByID( $id){
+       try{$race = Race::find($id);
+       return response()->json($race);}
+       catch (\Exception $e) {
+        return response()->json(['error'=> $e->getMessage()], 404);
+       }
     }
 
 }

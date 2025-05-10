@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Segment extends Model
 {
+
+    public $timestamps = false; 
+
     use CrudTrait;
     use HasFactory;
     protected $table = "segments";
@@ -15,6 +18,7 @@ class Segment extends Model
         "race_id",
         "name",
         "orderNunber",
+        "mark_as_finish"
     ];
     protected $casts = [
         "race_id"=> "string",
@@ -24,5 +28,9 @@ class Segment extends Model
     public function race(){
         return $this->belongsTo(Race::class);
     }
+    public function checkpoint(){
+        return $this->hasMany(Checkpoint::class);
+    }
+
 
 }

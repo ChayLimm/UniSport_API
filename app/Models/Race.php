@@ -35,10 +35,10 @@ class Race extends Model
         "start_time"=> "timestamp",
         "end_time"=> "timestamp",
     ];
-    public function segment(){
+    public function segments(){
         return $this->hasMany(Segment::class);
     }
-    public function participant(){
+    public function participants(){
         return $this->hasMany(Participant::class);
     }
 }

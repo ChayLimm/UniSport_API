@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\RaceController;
+use App\Http\Controllers\SegmentController;
+use App\Http\Controllers\CheckpointController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +31,18 @@ Route::resource('race',RaceController::class);
 Route::post('race/{id}/startRace', [RaceController::class,'startRace']);
 Route::post('race/{id}/endRace', [RaceController::class,'endRace']);
 Route::post('race/{id}/participant', [RaceController::class,'showParticipant']);
+Route::post('race/{id}/segments', [RaceController::class,'getSegmentByRaceID']);
+Route::post('race/{id}/segments-finish', [RaceController::class,'markSegmentFinish']);
+Route::get('race/{id}',[RaceController::class,'getRaceByID']);
 
-// Route::post('createparticipant',[ParticipantController::class,'index'] );
-// Route::post('updateparticipant',[ParticipantController::class,'update'] );
-// Route::post('deleteparticipant',[ParticipantController::class,'delete'] );
+Route::get('/checkpoint/{id}/segment', [CheckpointController::class, 'getCheckpointBySegmentID']);
+Route::post('/checkpoint', [CheckpointController::class, 'createCheckpoint']);
+Route::get('/checkpoint', [CheckpointController::class, 'getCheckpoint']);
+
+
+Route::post('createparticipant',[ParticipantController::class,'create'] );
+Route::post('updateparticipant',[ParticipantController::class,'update'] );
+Route::post('deleteparticipant',[ParticipantController::class,'delete'] );
 
 
 
