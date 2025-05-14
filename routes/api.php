@@ -38,6 +38,8 @@ Route::get('race/{id}',[RaceController::class,'getRaceByID']);
 Route::get('/checkpoint/{id}/segment', [CheckpointController::class, 'getCheckpointBySegmentID']);
 Route::post('/checkpoint', [CheckpointController::class, 'createCheckpoint']);
 Route::get('/checkpoint', [CheckpointController::class, 'getCheckpoint']);
+Route::put('/checkpoint', [CheckpointController::class, 'updateCheckpoint']);
+Route::delete('/checkpoint/{id}', [CheckpointController::class, 'deleteCheckpoint']);
 
 
 Route::post('createparticipant',[ParticipantController::class,'create'] );
